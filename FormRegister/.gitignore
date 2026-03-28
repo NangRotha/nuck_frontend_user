@@ -1,0 +1,25 @@
+# Uploaded files
+uploads/photos/
+uploads/payment_proofs/
+
+# Configuration (if contains sensitive data)
+# config.phpphp
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+error_log
+
+# Temporary files
+*.tmp
+*.temp
+*~

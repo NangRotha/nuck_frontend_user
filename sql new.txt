@@ -1,0 +1,60 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS nuck_university;
+USE nuck_university;
+
+-- Menu items table
+CREATE TABLE IF NOT EXISTS menu_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    title_kh VARCHAR(100) NOT NULL,
+    url VARCHAR(255),
+    parent_id INT DEFAULT 0,
+    order_position INT DEFAULT 0,
+    is_dropdown TINYINT DEFAULT 0,
+    icon VARCHAR(50),
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert menu data
+INSERT INTO menu_items (title, title_kh, url, parent_id, order_position, is_dropdown, icon) VALUES
+-- Main menu items (parent_id = 0)
+('HOME', 'ទំព័រដើម', './', 0, 1, 0, 'fa-home'),
+('RESOURCES', 'ធនធាន', '#', 0, 2, 1, 'fa-folder-open'),
+('ACADEMICS', 'កម្មវិធីសិក្សា', '#', 0, 3, 1, 'fa-book'),
+('ABOUT', 'អំពីយើង', '#', 0, 4, 1, 'fa-info-circle'),
+('PROJECTS', 'គម្រោង', '#', 0, 5, 1, 'fa-project-diagram'),
+
+-- Resources submenu (parent_id = 2)
+('PARTNERS', 'ដៃគូរ', './public/partner', 2, 1, 0, 'fa-handshake'),
+('NEWS & EVENTS', 'ព័ត៌មាន', './public/new&events', 2, 2, 0, 'fa-calendar-alt'),
+
+-- Academics submenu (parent_id = 3)
+('Science & Mathematics', 'វិទ្យាសាស្រ្ត និងគណិតវិទ្យា', './public/Faculty_of_Science_and_Mathematics', 3, 1, 0, 'fa-flask'),
+('Arts & Humanities', 'សិល្បៈ និងមនុស្សសាស្រ្ត', './public/Faculty_of_Arts_Humanitites_and_Languages', 3, 2, 0, 'fa-palette'),
+('Agriculture', 'កសិកម្ម', './public/Faculty_of_Agriculture', 3, 3, 0, 'fa-leaf'),
+('Social Science', 'វិទ្យាសាស្រ្តសង្គម', './public/Faculty_of_social_science', 3, 4, 0, 'fa-users'),
+('Management', 'គ្រប់គ្រង', './public/Faculty_of_Management', 3, 5, 0, 'fa-chart-line'),
+
+-- About submenu (parent_id = 4)
+('Message from Rector', 'សារពីសាកលវិទ្យាធិការ', './public/about', 4, 1, 0, 'fa-envelope'),
+('Vision & Mission', 'ចក្ខុវិស័យ និងបេសកកម្ម', './public/vision-and-mission', 4, 2, 0, 'fa-eye'),
+('University History', 'ប្រវត្តិសាកលវិទ្យាល័យ', './public/history_university', 4, 3, 0, 'fa-history'),
+
+-- Projects submenu (parent_id = 5)
+('World Banks', 'ធនាគារពិភពលោក', './public/about', 5, 1, 0, 'fa-university'),
+('Erasmus+', 'អេរ៉ាស្មូស', './public/Erasmus', 5, 2, 0, 'fa-globe');
+
+-- Settings table for theme and language
+CREATE TABLE IF NOT EXISTS settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    setting_key VARCHAR(50) UNIQUE,
+    setting_value TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO settings (setting_key, setting_value) VALUES
+('site_name', 'National University of Cheasim Kamchaymear'),
+('site_name_kh', 'សាកលវិទ្យាល័យជាតិជាស៊ីមកំចាយមារ'),
+('default_theme', 'light'),
+('default_language', 'en');
